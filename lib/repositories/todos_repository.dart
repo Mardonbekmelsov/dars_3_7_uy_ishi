@@ -16,4 +16,12 @@ class TodosRepository {
   Future<void> deleteTodo(String id) async {
     await todoHttpService.deleteTodo(id);
   }
+
+  Future<void> editTodo(String id, String newTitle, String newData) async {
+    await todoHttpService.editTodo(id, newTitle, newData);
+  }
+
+  Future<void> changePosition(String id, bool isCompleted) async {
+    await todoHttpService.changePosition(id, isCompleted);
+  }   
 }

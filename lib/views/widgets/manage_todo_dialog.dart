@@ -23,7 +23,7 @@ class _ManageTodoDialogState extends State<ManageTodoDialog> {
 
     if (widget.todo != null) {
       title = widget.todo!.title;
-      data=widget.todo!.data;
+      data = widget.todo!.data;
     }
   }
 
@@ -54,7 +54,7 @@ class _ManageTodoDialogState extends State<ManageTodoDialog> {
               initialValue: title,
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
-                labelText: "Reja nomi",
+                labelText: "Reja nomini kiriting",
               ),
               validator: (value) {
                 if (value == null || value.trim().isEmpty) {
@@ -70,10 +70,9 @@ class _ManageTodoDialogState extends State<ManageTodoDialog> {
             const SizedBox(height: 10),
             TextFormField(
               initialValue: data,
-              keyboardType: TextInputType.number,
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
-                labelText: "Mahsulot narxini",
+                labelText: "Reja sanasini kiriting",
               ),
               validator: (value) {
                 if (value == null || value.trim().isEmpty) {
@@ -87,7 +86,6 @@ class _ManageTodoDialogState extends State<ManageTodoDialog> {
               },
             ),
             const SizedBox(height: 10),
-            
           ],
         ),
       ),

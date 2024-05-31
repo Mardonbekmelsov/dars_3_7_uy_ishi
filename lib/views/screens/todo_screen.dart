@@ -26,41 +26,34 @@ class _TodoScreenState extends State<TodoScreen> {
           data['title'],
           data['data'],
         );
-        setState(() {});
       } catch (e) {
         print(e);
       }
     }
+    setState(() {});
   }
 
-  void deleteTodo(Todo todo) async {
-    final response = await showDialog(
+  void editTodo(Todo todo) async {
+    final data = await showDialog(
       context: context,
       builder: (ctx) {
-        return AlertDialog(
-          title: const Text("ishonchingiz komilmi?"),
-          content: Text("Siz ${todo.title} nomli rejani o'chirmoqchisiz."),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context, false);
-              },
-              child: const Text("Bekor qilish"),
-            ),
-            FilledButton(
-              onPressed: () {
-                Navigator.pop(context, true);
-              },
-              child: const Text("Ha, ishonchim komil"),
-            ),
-          ],
-        );
+        return ManageTodoDialog(todo: todo);
       },
     );
-    if (response) {
-      await todoViewModel.deleteTodo(todo.id);
-      setState(() {});
+
+    if (data != null) {
+      todoViewModel.editTodo(
+        todo.id,
+        data['title'],
+        data['data'],
+      );
     }
+    setState(() {});
+  }
+
+  void changePosition(Todo todo) async {
+    todoViewModel.changePosition(todo.id, !todo.isCompleted);
+    setState(() {});
   }
 
   @override
@@ -113,6 +106,12 @@ class _TodoScreenState extends State<TodoScreen> {
                         final todo = todos[index];
                         return TodoWidget(
                           todo: todo,
+                          changePosition: () {
+                            changePosition(todo);
+                          },
+                          onEdit: () {
+                            editTodo(todo);
+                          },
                           onDelete: () async {
                             final response = await showDialog(
                               context: context,

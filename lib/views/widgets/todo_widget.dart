@@ -5,56 +5,68 @@ import 'package:flutter/material.dart';
 class TodoWidget extends StatelessWidget {
   Todo todo;
   final Function() onDelete;
+  final Function() onEdit;
+  final Function() changePosition;
 
-  
-  TodoWidget({super.key, required this.todo, required this.onDelete});
+  TodoWidget(
+      {super.key,
+      required this.todo,
+      required this.onDelete,
+      required this.onEdit,
+      required this.changePosition});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Column(
-            children: [
-              Text(
-                todo.title,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
+    return InkWell(
+      onTap: changePosition,
+      child: Container(
+        width: double.infinity,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  todo.title,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                    decoration:
+                        todo.isCompleted ? TextDecoration.lineThrough : null,
+                  ),
                 ),
-              ),
-              Text(
-                todo.data,
-                style: const TextStyle(
-                  color: Colors.grey,
+                Text(
+                  todo.data,
+                  style: const TextStyle(
+                    color: Colors.grey,
+                  ),
                 ),
-              ),
-            ],
-          ),
-          Row(
-            children: [
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.edit,
-                  color: Colors.blue,
+              ],
+            ),
+            Row(
+              children: [
+                IconButton(
+                  onPressed: onEdit,
+                  icon: const Icon(
+                    Icons.edit,
+                    color: Colors.blue,
+                  ),
                 ),
-              ),
-              const SizedBox(
-                width: 20,
-              ),
-              IconButton(
-                onPressed: onDelete,
-                icon: const Icon(
-                  Icons.delete,
-                  color: Colors.red,
+                const SizedBox(
+                  width: 20,
                 ),
-              ),
-            ],
-          ),
-        ],
+                IconButton(
+                  onPressed: onDelete,
+                  icon: const Icon(
+                    Icons.delete,
+                    color: Colors.red,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
